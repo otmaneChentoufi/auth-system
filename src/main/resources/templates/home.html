@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home Page</title>
+</head>
+<body>
+    <h1>Home Page</h1>
+
+    <!-- Greet the user if logged in -->
+    <p th:if="${username}" th:text="'Hello, ' + ${username} + '!'"></p>
+
+    <!-- Show product link and logout form only if user is logged in -->
+    <div th:if="${username}">
+        <a href="/product">Product Page</a>
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+
+    <!-- Message for guests -->
+    <p th:if="${username == null}">Welcome, guest! Please <a th:href="@{/login}">log in</a>.</p>
+</body>
+</html>

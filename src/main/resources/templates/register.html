@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 20px;
+        }
+        .registration-container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #343a40;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="text"], input[type="password"], select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+			margin:5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+		p {
+		            text-align: center;
+		}
+		p a {
+		 color: #007bff;
+		 text-decoration: none;
+		 }
+		p a:hover {
+		 text-decoration: underline;
+		}
+    </style>
+</head>
+<body>
+    <div class="registration-container">
+        <h1>Register</h1>
+        <form th:action="@{/register}" method="post">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+			
+			<label for="email">Email</label>
+			<input type="text" id="email" name="email" required>
+            
+			<label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+			
+			<label for="confirmePassword">confirme Password</label>
+			<input type="password" id="confirmePassword" name="confirmePassword" required>
+      
+            <button type="submit">Register</button>
+        </form>
+		<p>Already have an account ? <a href="/login">Log in</a> </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:sec="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Produits</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e9ecef;
+        }
+        h1 {
+            color: #343a40;
+            text-align: center;
+        }
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            cursor: pointer;
+            color: white;
+            border-radius: 4px;
+        }
+		.add-btn {
+		           background-color: darkorange;
+		       }
+        .edit-btn {
+            background-color: #28a745;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+        }
+        .action-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Liste des Produits</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nom du Produit</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Produit A</td>
+                <td>Un excellent produit pour usage quotidien</td>
+                <td>20,00 €</td>
+                <td>15</td>
+				<td>
+				   <button class="action-btn add-btn" sec:authorize="hasRole('ROLE_USER') and not hasAnyRole('ROLE_ADMIN', 'ROLE_OTHER')">
+				    Add To Card
+				   </button>
+
+				    <!-- Button visible only to users with role ADMIN -->
+				    <button class="action-btn edit-btn" sec:authorize="hasRole('ADMIN')">
+				      Modifier
+				    </button>
+
+				    <!-- Button visible only to users with role ADMIN -->
+				    <button class="action-btn delete-btn" sec:authorize="hasRole('ADMIN')">
+				       Supprimer
+				    </button>
+				</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Produit C</td>
+                <td>Conçu pour un usage intensif</td>
+                <td>35,00 €</td>
+                <td>20</td>
+				<td>
+					<button class="action-btn add-btn" sec:authorize="hasRole('ROLE_USER') and not hasAnyRole('ROLE_ADMIN', 'ROLE_OTHER')">
+						 Add To Card
+					</button>
+					<!-- Button visible only to users with role ADMIN -->
+					<button class="action-btn edit-btn" sec:authorize="hasRole('ADMIN')">
+					 	Modifier
+					</button>
+					<!-- Button visible only to users with role ADMIN -->
+					<button class="action-btn delete-btn" sec:authorize="hasRole('ADMIN')">
+						Supprimer
+					</button>
+				</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
