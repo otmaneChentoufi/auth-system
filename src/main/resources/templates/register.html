@@ -11,6 +11,7 @@
             margin: 20px;
         }
         .registration-container {
+			text-align: center;
             max-width: 400px;
             margin: auto;
             padding: 20px;
@@ -27,8 +28,8 @@
             display: block;
             margin-top: 10px;
         }
-        input[type="text"], input[type="password"], select {
-            width: 100%;
+        input[type="text"], input[type="email"], input[type="password"], select {
+            width:80%;
             padding: 10px;
             margin-top: 5px;
             margin-bottom: 15px;
@@ -36,7 +37,7 @@
             border-radius: 4px;
         }
         button {
-            width: 100%;
+            width: 80%;
             padding: 10px;
             background-color: #007bff;
             color: white;
@@ -64,21 +65,30 @@
 <body>
     <div class="registration-container">
         <h1>Register</h1>
-        <form th:action="@{/register}" method="post">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required>
-			
-			<label for="email">Email</label>
-			<input type="text" id="email" name="email" required>
-            
-			<label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
-			
-			<label for="confirmePassword">confirme Password</label>
-			<input type="password" id="confirmePassword" name="confirmePassword" required>
-      
-            <button type="submit">Register</button>
-        </form>
+		<form th:action="@{/register}" th:object="${appUserDTO}" method="post">
+		       <div>
+		           <label for="username">Username:</label>
+		           <input type="text" id="username" th:field="*{username}" required>
+		           <p style="color:red;" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+		       </div>
+		       <div>
+		           <label for="email">Email:</label>
+		           <input type="email" id="email" th:field="*{email}" required>
+		           <p style="color:red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+		       </div>
+		       <div>
+		           <label for="password">Password:</label>
+		           <input type="password" id="password" th:field="*{password}" required>
+		           <p style="color:red;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+		       </div>
+		       <div>
+		           <label for="confirmPassword">Confirm Password:</label>
+		           <input type="password" id="confirmPassword" th:field="*{confirmPassword}" required>
+		           <p style="color:red;" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></p>
+		       </div>
+		       <p th:if="${errorMessage}" th:text="${errorMessage}" style="color:red;"></p>
+		       <button type="submit">Register</button>
+		   </form>
 		<p>Already have an account ? <a href="/login">Log in</a> </p>
     </div>
 </body>

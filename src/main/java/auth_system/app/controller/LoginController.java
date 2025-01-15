@@ -4,12 +4,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import auth_system.app.dto.AppUserDTO;
 import auth_system.app.service.AccountService;
 import auth_system.app.service.AccountServiceImpl;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -24,8 +27,9 @@ public class LoginController {
     }
 
     @GetMapping("/registration")
-    public String register() {
-        return "register"; // Return the register.html template
+    public String register(Model model) {
+        model.addAttribute("appUserDTO", new AppUserDTO());
+        return "register";
     }
 
     @GetMapping("/")
@@ -39,18 +43,24 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@RequestParam String username,
-                               @RequestParam String password,
-                               @RequestParam String email,
-                               @RequestParam String confirmePassword) { // Fixed spelling
-    	System.out.println(email);
+    public String registerUser(@Valid AppUserDTO registerDTO, BindingResult bindingResult, Model model) {
+        // Check for validation errors
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("errors", bindingResult.getAllErrors());
+            return "register"; // Return to the registration page with errors
+        }
+
         try {
-            accountService.addNewUser(username, password, email, confirmePassword);
-            return "redirect:/login"; // Redirect to login page after successful registration
+            accountService.addNewUser(
+                registerDTO.getUsername(),
+                registerDTO.getPassword(),
+                registerDTO.getEmail(),
+                registerDTO.getConfirmPassword()
+            );
+            return "redirect:/login"; // Redirect on success
         } catch (RuntimeException e) {
-        	System.out.println(e.getMessage());
-            // Handle registration errors (e.g., user already exists, password mismatch)
-            return "register"; // Return to registration page with an error message
+            model.addAttribute("errorMessage", e.getMessage());
+            return "register"; // Return to the registration page with custom errors
         }
     }
 
