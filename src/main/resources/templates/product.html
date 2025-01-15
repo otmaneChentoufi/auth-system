@@ -60,6 +60,12 @@
 </head>
 <body>
     <h1>Liste des Produits</h1>
+	<!-- Show product link and logout form only if user is logged in -->
+	   <div>
+	       <form th:action="@{/logout}" method="post" style="display: inline;">
+	           <button class="action-btn" type="submit">Logout</button>
+	       </form>
+	   </div>
     <table>
         <thead>
             <tr>

@@ -8,88 +8,95 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
-            margin: 20px;
+            margin: 0; /* Remove default margin */
+            padding: 20px; /* Add padding to body */
         }
         .registration-container {
-			text-align: center;
             max-width: 400px;
-            margin: auto;
-            padding: 20px;
+            margin: 15px auto; /* Center container and add margin */
+            padding: 20px; /* Increased padding */
             background-color: #fff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+            border-radius: 10px; /* Slightly rounded corners */
         }
         h1 {
             text-align: center;
             color: #343a40;
+            margin-bottom: 20px; /* Add bottom margin for spacing */
         }
         label {
             font-weight: bold;
             display: block;
-            margin-top: 10px;
+            margin: 10px 0 5px; /* Add top and bottom margin */
         }
         input[type="text"], input[type="email"], input[type="password"], select {
-            width:80%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
+            width: 100%; /* Full width for inputs */
+            padding: 12px; /* Increased padding */
+            margin-bottom: 15px; /* Add bottom margin for spacing */
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 5px; /* Slightly rounded corners */
+            box-sizing: border-box; /* Include padding in width */
         }
         button {
-            width: 80%;
-            padding: 10px;
+            width: 100%; /* Full width for button */
+            padding: 12px; /* Increased padding */
             background-color: #007bff;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px; /* Slightly rounded corners */
             cursor: pointer;
             font-size: 16px;
-			margin:5px;
+            margin-top: 10px; /* Add top margin */
         }
         button:hover {
             background-color: #0056b3;
         }
-		p {
-		            text-align: center;
-		}
-		p a {
-		 color: #007bff;
-		 text-decoration: none;
-		 }
-		p a:hover {
-		 text-decoration: underline;
-		}
+        p {
+            text-align: center;
+            margin-top: 20px; /* Add top margin for spacing */
+        }
+        p a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        p a:hover {
+            text-decoration: underline;
+        }
+        .error-message {
+            color: red;
+            margin-top: 5px; /* Add top margin for spacing */
+        }
     </style>
 </head>
 <body>
     <div class="registration-container">
         <h1>Register</h1>
-		<form th:action="@{/register}" th:object="${appUserDTO}" method="post">
-		       <div>
-		           <label for="username">Username:</label>
-		           <input type="text" id="username" th:field="*{username}" required>
-		           <p style="color:red;" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
-		       </div>
-		       <div>
-		           <label for="email">Email:</label>
-		           <input type="email" id="email" th:field="*{email}" required>
-		           <p style="color:red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
-		       </div>
-		       <div>
-		           <label for="password">Password:</label>
-		           <input type="password" id="password" th:field="*{password}" required>
-		           <p style="color:red;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
-		       </div>
-		       <div>
-		           <label for="confirmPassword">Confirm Password:</label>
-		           <input type="password" id="confirmPassword" th:field="*{confirmPassword}" required>
-		           <p style="color:red;" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></p>
-		       </div>
-		       <p th:if="${errorMessage}" th:text="${errorMessage}" style="color:red;"></p>
-		       <button type="submit">Register</button>
-		   </form>
-		<p>Already have an account ? <a href="/login">Log in</a> </p>
+        <form th:action="@{/register}" th:object="${appUserDTO}" method="post">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" th:field="*{username}" required>
+                <p class="error-message" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" th:field="*{email}" required>
+                <p class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" th:field="*{password}" required>
+                <p class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+            </div>
+            <div>
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" th:field="*{confirmPassword}" required>
+                <p class="error-message" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></p>
+            </div>
+            <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="/login">Log in</a></p>
     </div>
 </body>
 </html>
+

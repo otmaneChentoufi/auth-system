@@ -16,9 +16,9 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig {
 	
 	private final UserDetailServiceImlp userDetailServiceImpl;
-	
-	@Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable()) // Disable CSRF for simplicity; enable in production with proper config
             .formLogin(form -> form
@@ -34,12 +34,14 @@ public class SecurityConfig {
             )
             .userDetailsService(userDetailServiceImpl)
             .authorizeHttpRequests(authorize -> authorize
-            	.requestMatchers("/registration", "register").permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN") // Match URLs for ADMIN role
-                .requestMatchers("/student/**").hasRole("USER") // Match URLs for USER role
-                .anyRequest().authenticated() // All other requests require authentication
-            );
-
+                    .requestMatchers("/registration", "/register").permitAll() // Allow access to registration pages
+                    .requestMatchers("/product/**").hasAnyRole("ADMIN")// Match URLs for ADMIN role
+                    .anyRequest().authenticated() // All other requests require authentication
+                )
+            .exceptionHandling(exceptionHandling -> 
+                    exceptionHandling.accessDeniedPage("/access-denied") // Set the access denied page
+        );
+        
         return http.build();
     }
 }

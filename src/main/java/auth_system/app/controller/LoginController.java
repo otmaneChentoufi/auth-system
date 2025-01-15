@@ -31,6 +31,11 @@ public class LoginController {
         model.addAttribute("appUserDTO", new AppUserDTO());
         return "register";
     }
+    
+    @GetMapping("/access-denied")
+    public String accessDenied() {
+        return "access-denied"; // Returns the Thymeleaf template name
+    }
 
     @GetMapping("/")
     public String index() {
