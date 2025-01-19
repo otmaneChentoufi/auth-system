@@ -1,0 +1,25 @@
+<h1>Classes List</h1>
+<a href="/classes/createClasseView">Add New Class</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Hours</th>
+            <th sec:authorize="hasRole('ADMIN')">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="classe : ${classes}">
+            <td th:text="${classe.classeId}"></td>
+            <td th:text="${classe.name}"></td>
+            <td th:text="${classe.description}"></td>
+            <td th:text="${classe.nombreHeurs}"></td>
+            <td sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{'/classes/' + ${classe.classeId} + '/edit'}">Edit</a>
+                <a th:href="@{'/classes/' + ${classe.classeId} + '/delete'}">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -70,7 +70,7 @@ public class LoginController {
     }
 
     @GetMapping("/home")
-    public String home(Model model, Authentication authentication) {
+    public String home(Model model, Authentication authentication) { // Authentication is an object provided by Spring security
         if (authentication != null && authentication.isAuthenticated()) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             model.addAttribute("username", userDetails.getUsername());

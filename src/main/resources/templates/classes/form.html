@@ -1,0 +1,16 @@
+<h1 th:text="${classe != null ? 'Edit Class' : 'Create Class'}"></h1>
+
+<form th:action="${classe != null ? '/classes/' + classe.classeId + '/edit' : '/classes/create'}" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" th:value="${classe != null ? classe.name : ''}" required>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" rows="5" required th:text="${classe != null ? classe.description : ''}"></textarea>
+
+    <label for="nombreHeurs">Number of Hours:</label>
+    <input type="number" id="nombreHeurs" name="nombreHeurs" th:value="${classe != null ? classe.nombreHeurs : ''}" required>
+
+    <button type="submit" th:text="${classe != null ? 'Update Class' : 'Create Class'}"></button>
+</form>
+
+<a href="/classes/list">Back to Classes List</a>

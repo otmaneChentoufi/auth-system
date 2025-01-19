@@ -1,0 +1,11 @@
+<h1 th:text="${formation != null ? 'Edit Formation' : 'Create Formation'}"></h1>
+
+<form th:action="${formation != null ? '/formations/' + formation.formationId + '/edit' : '/formations/create'}" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" th:value="${formation != null ? formation.name : ''}" required>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" rows="5" required th:text="${formation != null ? formation.description : ''}"></textarea>
+
+    <button type="submit" th:text="${formation != null ? 'Update Formation' : 'Create Formation'}"></button>
+</form>

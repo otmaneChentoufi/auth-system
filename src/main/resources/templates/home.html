@@ -22,6 +22,8 @@
     <!-- Show product link and logout form only if user is logged in -->
     <div th:if="${username}">
         <a href="/product">Product Page</a>
+		<a href="/classes/list">Classes List</a>
+		<a href="/formations/list">Formations List</a>
         <form th:action="@{/logout}" method="post" style="display: inline;">
 			<button class="action-btn" type="submit">Logout</button>
         </form>

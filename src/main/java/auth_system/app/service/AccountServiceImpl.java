@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 
 import auth_system.app.entities.Role;
 import auth_system.app.entities.AppUser;
+import auth_system.app.entities.Classe;
+import auth_system.app.entities.Formation;
+import auth_system.app.repository.ClasseRepository;
+import auth_system.app.repository.FormationRepository;
 import auth_system.app.repository.RoleRepository;
 import auth_system.app.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -19,6 +23,10 @@ public class AccountServiceImpl implements AccountService {
 
 	private final UserRepository userRepo;
 	private final RoleRepository roleRepo;
+	private final ClasseRepository classeRepository;
+	private final FormationRepository formationRepository ;
+
+	
 	private final PasswordEncoder passwordEncoder;
 	
 	@Override
@@ -69,5 +77,31 @@ public class AccountServiceImpl implements AccountService {
 	public AppUser loadUserByUsername(String username) {
 		return userRepo.findByUsername(username);
 	}
+	
+	 @Override
+	    public void assignClassToUser(String username, Long classeId) {
+	    	AppUser user = userRepo.findByUsername(username);
+	    	Classe classe = classeRepository.findClasseByClasseId(classeId);
+	        
+	        if (user != null && classe != null ) {
+	           
+	        	user.getClasses().add(classe); // Add class to user's class list
+	        	userRepo.save(user); // Save updated user
+	        }
+	        // Optionally handle cases where user or class was not found
+	    }
+	
+		
+	 @Override
+	    public void assignFormationToUser(String username, Long formationId) {
+	    	AppUser user = userRepo.findByUsername(username);
+	    	Formation formation = formationRepository.findFormationByFormationId(formationId);
+	        
+	        if (user != null && formation != null ) {
+	           
+	        	user.getFormations().add(formation); 
+	        	userRepo.save(user); 
+	        }
+	    }
 
 }

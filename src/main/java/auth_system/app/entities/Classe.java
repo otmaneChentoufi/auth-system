@@ -1,6 +1,5 @@
 package auth_system.app.entities;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -17,12 +16,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "roles", schema="my_schema")
-public class Role {
+@Table(name = "classe", schema="my_schema")
+public class Classe {
 	@Id
 	@GeneratedValue
-	private Long roleId;
+	private Long classeId;
 	
-    private String role;
+	private String name;
+	private String description;
+	private int nombreHeurs;
 }
-

@@ -1,0 +1,23 @@
+<h1>Formations List</h1>
+<a href="/formations/formationFormView">Add New Formation</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th sec:authorize="hasRole('ADMIN')">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="formation : ${formations}">
+            <td th:text="${formation.formationId}"></td>
+            <td th:text="${formation.name}"></td>
+            <td th:text="${formation.description}"></td>
+            <td sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{'/formations/' + ${formation.formationId} + '/edit'}">Edit</a>
+                <a th:href="@{'/formations/' + ${formation.formationId} + '/delete'}">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

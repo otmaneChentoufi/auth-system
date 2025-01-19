@@ -35,7 +35,7 @@ public class SecurityConfig {
             .userDetailsService(userDetailServiceImpl)
             .authorizeHttpRequests(authorize -> authorize
                     .requestMatchers("/registration", "/register").permitAll() // Allow access to registration pages
-                    .requestMatchers("/product/**").hasAnyRole("ADMIN")// Match URLs for ADMIN role
+                    .requestMatchers("/product/**").hasAnyRole("ADMIN","USER")// Match URLs for ADMIN role
                     .anyRequest().authenticated() // All other requests require authentication
                 )
             .exceptionHandling(exceptionHandling -> 
