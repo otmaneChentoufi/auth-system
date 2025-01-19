@@ -1,5 +1,7 @@
 package auth_system.app.controller;
 
+import java.util.List;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import auth_system.app.dto.AppUserDTO;
+import auth_system.app.entities.Role;
+import auth_system.app.repository.RoleRepository;
 import auth_system.app.service.AccountService;
 import auth_system.app.service.AccountServiceImpl;
 import jakarta.validation.Valid;
@@ -20,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class LoginController {
 
     private final AccountServiceImpl accountService;
+    private final RoleRepository roleRepository;
 
     @GetMapping("/login")
     public String login() {
@@ -28,6 +33,8 @@ public class LoginController {
 
     @GetMapping("/registration")
     public String register(Model model) {
+    	List<Role> roles = roleRepository.findAll(); // Fetch roles from the database
+        model.addAttribute("roles", roles);
         model.addAttribute("appUserDTO", new AppUserDTO());
         return "register";
     }
@@ -52,7 +59,7 @@ public class LoginController {
         // Check for validation errors
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
-            return "register"; // Return to the registration page with errors
+            return "registration"; // Return to the registration page with errors
         }
 
         try {
@@ -60,12 +67,12 @@ public class LoginController {
                 registerDTO.getUsername(),
                 registerDTO.getPassword(),
                 registerDTO.getEmail(),
-                registerDTO.getConfirmPassword()
+                registerDTO.getRoleName()
             );
-            return "redirect:/login"; // Redirect on success
+            return "redirect:/accounts/list"; // Redirect on success
         } catch (RuntimeException e) {
             model.addAttribute("errorMessage", e.getMessage());
-            return "register"; // Return to the registration page with custom errors
+            return "registration"; // Return to the registration page with custom errors
         }
     }
 

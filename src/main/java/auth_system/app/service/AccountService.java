@@ -8,7 +8,7 @@ import auth_system.app.entities.AppUser;
 
 public interface AccountService {
 	
-	AppUser addNewUser(String username, String password, String email, String confirmPassword);
+	AppUser addNewUser(String username, String password, String email, String role);
 	Role addNewRole(String role);
 	AppUser loadUserById(Long userId);
 	AppUser loadUserByUsername(String username);

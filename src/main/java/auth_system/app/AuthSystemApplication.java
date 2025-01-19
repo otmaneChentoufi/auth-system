@@ -21,10 +21,14 @@ public class AuthSystemApplication {
 	}
 	
 	@Bean
-	CommandLineRunner commandLineRunnerUserDetails(AccountService accountService, ClasseService classeService, FormationService formationService) {
+	CommandLineRunner commandLineRunnerUserDetails(AccountService accountService,
+												   ClasseService classeService, 
+												   FormationService formationService)
+	{
 		return args->{
 			
-			accountService.addNewRole("USER");
+			accountService.addNewRole("ETUDIANT");
+			accountService.addNewRole("ENSEINGANT");
 			accountService.addNewRole("ADMIN");
 			
 			// Example classes to be assigned
@@ -48,31 +52,24 @@ public class AuthSystemApplication {
 								.description("Formation 2 Description")
 								.build();
 			
-			
 			formationService.createFormation(formation1);
 			formationService.createFormation(formation2);
 
-			
 			// Save classes to the database (make sure you have a ClasseService to do this)
 			classeService.createClass(classe1);
 			classeService.createClass(classe2);
 
 			// Create users and assign roles
-			accountService.addNewUser("user 1", "1234", "user1@gmail.com", "1234");
-			accountService.addNewUser("user 2", "1234", "user2@gmail.com", "1234");
-			accountService.addNewUser("admin", "1234", "admin@gmail.com", "1234");
-
-			accountService.addRoleToUser("user 1", "USER");
-			accountService.addRoleToUser("user 2", "USER");
-			accountService.addRoleToUser("admin", "ADMIN");
-
+		     // Create users
+            accountService.addNewUser("user1", "1234", "user1@gmail.com", "ETUDIANT");
+            accountService.addNewUser("admin", "1234", "admin@gmail.com", "ADMIN");
+            
 			// Assign classes to users
 			accountService.assignClasseToUser(1L, classe1.getClasseId());
 			accountService.assignClasseToUser(2L, classe2.getClasseId());
 			
 			accountService.assignFormationToUser(1L, formation1.getFormationId());
 			accountService.assignFormationToUser(2L, formation2.getFormationId());
-						
 		};
 	}
 	

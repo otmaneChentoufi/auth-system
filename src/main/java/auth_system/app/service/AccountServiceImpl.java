@@ -37,19 +37,18 @@ public class AccountServiceImpl implements AccountService {
 	}
 	
 	@Override
-	public AppUser addNewUser(String username, String password, String email, String confirmPassword) {
+	public AppUser addNewUser(String username, String password, String email, String role) {
 		
 		
 		if(userRepo.findByUsername(username) != null) throw new RuntimeException("this user existe Already");
-		if(!password.equals(confirmPassword)) throw new RuntimeException("passwords not match");
 		
-	    Role userRole = roleRepo.findByRole("USER");
-	  
+	    Role userRole = roleRepo.findByRole(role);
+	    
 	    AppUser appUser = AppUser.builder()
 	            .username(username)
 	            .password(passwordEncoder.encode(password))
 	            .email(email)
-	            .roles(Collections.singletonList(userRole)) // default role is USER
+	            .roles(Collections.singletonList(userRole))
 	            .build();
 	    AppUser savedUser = userRepo.save(appUser);
 		return savedUser;

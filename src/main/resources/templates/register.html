@@ -87,11 +87,15 @@
                 <input type="password" id="password" th:field="*{password}" required>
                 <p class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
             </div>
-            <div>
-                <label for="confirmPassword">Confirm Password:</label>
-                <input type="password" id="confirmPassword" th:field="*{confirmPassword}" required>
-                <p class="error-message" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></p>
-            </div>
+			<div>
+				<label for="Role">Select Role:</label>
+					<select id="role" name="roleName">
+				        <option th:each="role : ${roles}" 
+								th:value="${role.role}" 
+					            th:text="${role.role}">
+						</option>
+					</select>
+			</div>
             <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"></p>
             <button type="submit">Register</button>
         </form>
