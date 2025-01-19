@@ -34,10 +34,9 @@ public class SecurityConfig {
             )
             .userDetailsService(userDetailServiceImpl)
             .authorizeHttpRequests(authorize -> authorize
-                    .requestMatchers("/registration", "/register").permitAll() // Allow access to registration pages
-                    .requestMatchers("/product/**").hasAnyRole("ADMIN","USER")// Match URLs for ADMIN role
+                    .requestMatchers("/product/**","/registration", "/register").hasRole("ADMIN")// Match URLs for ADMIN role
                     .anyRequest().authenticated() // All other requests require authentication
-                )
+             )
             .exceptionHandling(exceptionHandling -> 
                     exceptionHandling.accessDeniedPage("/access-denied") // Set the access denied page
         );

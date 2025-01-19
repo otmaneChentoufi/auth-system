@@ -31,6 +31,13 @@ public class FormationServiceImpl implements FormationService {
         Optional<Formation> optionalFormation = formationRepository.findById(formationId);
         return optionalFormation.orElse(null); // Retourne null si non trouvé, ou utilisez une exception
     }
+    
+    @Override
+    public List<Formation> getFormationUsername(String username) {
+    	AppUser user = appUserRepository.findByUsername(username);
+        return user.getFormations() ;
+    }
+
 
     @Override
     public List<Formation> getAllFormations() {

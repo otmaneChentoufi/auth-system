@@ -1,6 +1,7 @@
 package auth_system.app.service;
 
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,12 @@ public class AccountServiceImpl implements AccountService {
 
 	
 	private final PasswordEncoder passwordEncoder;
+	
+	
+	@Override
+	public List<AppUser> getAllUsers() {
+		return userRepo.findAllByRoleNotAdmin();
+	}
 	
 	@Override
 	public AppUser addNewUser(String username, String password, String email, String confirmPassword) {
@@ -78,9 +85,26 @@ public class AccountServiceImpl implements AccountService {
 		return userRepo.findByUsername(username);
 	}
 	
+	@Override
+	public AppUser loadUserById(Long userId) {
+		return userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+	}
+	
 	 @Override
-	    public void assignClassToUser(String username, Long classeId) {
-	    	AppUser user = userRepo.findByUsername(username);
+	 public void removeUser(Long userId) {
+		    AppUser user = userRepo.findById(userId)
+		            .orElseThrow();
+
+		    user.getRoles().clear();
+		    user.getClasses().clear();
+		    user.getFormations().clear();
+		    
+		    userRepo.delete(user); 
+		}
+		
+	 @Override
+	    public void assignClasseToUser(Long accountId, Long classeId) {
+	    	AppUser user = userRepo.findById(accountId).get();
 	    	Classe classe = classeRepository.findClasseByClasseId(classeId);
 	        
 	        if (user != null && classe != null ) {
@@ -90,11 +114,10 @@ public class AccountServiceImpl implements AccountService {
 	        }
 	        // Optionally handle cases where user or class was not found
 	    }
-	
-		
+	 
 	 @Override
-	    public void assignFormationToUser(String username, Long formationId) {
-	    	AppUser user = userRepo.findByUsername(username);
+	    public void assignFormationToUser(Long formationdId, Long formationId) {
+	    	AppUser user = userRepo.findById(formationdId).get();
 	    	Formation formation = formationRepository.findFormationByFormationId(formationId);
 	        
 	        if (user != null && formation != null ) {
@@ -102,6 +125,28 @@ public class AccountServiceImpl implements AccountService {
 	        	user.getFormations().add(formation); 
 	        	userRepo.save(user); 
 	        }
+	    }
+	 @Override
+	 public void removeClasseFromUser(Long userId, Long classeId) {
+	        AppUser user = userRepo.findById(userId)
+	                .orElseThrow(() -> new RuntimeException("User not found"));
+	        Classe classe = classeRepository.findById(classeId)
+	                .orElseThrow(() -> new RuntimeException("Classe not found"));
+
+	        user.getClasses().remove(classe);
+	        userRepo.save(user); // Save the updated user
+	    }
+	 
+	 @Override
+	 public void removeFormationFromUser(Long userId, Long formationId) {
+	        AppUser user = userRepo.findById(userId)
+	                .orElseThrow(() -> new RuntimeException("User not found"));
+	        
+	        Formation formation = formationRepository.findById(formationId)
+	                .orElseThrow(() -> new RuntimeException("Formation not found"));
+
+	        user.getFormations().remove(formation);
+	        userRepo.save(user); // Save the updated user
 	    }
 
 }

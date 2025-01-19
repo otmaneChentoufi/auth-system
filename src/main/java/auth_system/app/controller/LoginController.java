@@ -76,6 +76,7 @@ public class LoginController {
             model.addAttribute("username", userDetails.getUsername());
             model.addAttribute("roles", userDetails.getAuthorities());
         }
-        return "home"; // Return the home.html template
+        // Add the fragment reference
+        return "home"; // Master template
     }
 }

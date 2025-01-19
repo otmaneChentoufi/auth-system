@@ -1,0 +1,31 @@
+<h1>Account List</h1>
+<a href="/registration">Add New Account</a>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>E-mail</th>
+			<th>Classes</th>
+			<th>Formations</th>
+            <th sec:authorize="hasRole('ADMIN')">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="account : ${accounts}">
+            <td th:text="${account.username}"></td>
+            <td th:text="${account.email}"></td>
+			<td>
+				<a th:href="@{'/accounts/' + ${account.userId} + '/classes'}">classe details</a>
+			</td>
+			<td>
+				<a th:href="@{'/accounts/' + ${account.userId} + '/formations'}">formation details</a>
+			</td>
+            <td sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{'/accounts/delete/'+${account.userId}}">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+	
+
+</table>
+<a href="/home">HOME</a>

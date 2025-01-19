@@ -1,0 +1,35 @@
+
+    <h1 th:if="${account}" th:text="'Classes de : ' + ${account.username}"></h1>
+	
+	<form th:action="@{/accounts/{userId}/assignClass(userId=${account.userId})}" method="post">
+	    <label for="classId">Select Class:</label>
+	    <select id="classId" name="classId">
+	        <option th:each="classe : ${availableClasses}" 
+	                th:value="${classe.classeId}" 
+	                th:text="${classe.name}"></option>
+	    </select>
+	    <button type="submit">Assign Class</button>
+	</form>
+	
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Classe</th>
+                <th>Description</th>
+                <th>Nombre d'heures</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+			<tr th:if="${account.classes}" th:each="classe : ${account.classes}">
+				<td th:text="${classe.name}"></td>
+			    <td th:text="${classe.description}"></td>
+			    <td th:text="${classe.nombreHeurs}"></td>
+				<td>
+					<a th:href="@{'/accounts/delete/classes/' + ${account.userId} + '/'+ ${classe.classeId} }">remove classe</a>
+				</td>
+			</tr>
+        </tbody>
+    </table>
+    <a th:href="@{/accounts/list}">Retour à la liste des utilisateurs</a>
+

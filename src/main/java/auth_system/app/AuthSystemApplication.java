@@ -59,19 +59,19 @@ public class AuthSystemApplication {
 
 			// Create users and assign roles
 			accountService.addNewUser("user 1", "1234", "user1@gmail.com", "1234");
-			accountService.addNewUser("user 2", "12345", "user2@gmail.com", "12345");
-			accountService.addNewUser("admin", "123456", "admin@gmail.com", "123456");
+			accountService.addNewUser("user 2", "1234", "user2@gmail.com", "1234");
+			accountService.addNewUser("admin", "1234", "admin@gmail.com", "1234");
 
 			accountService.addRoleToUser("user 1", "USER");
 			accountService.addRoleToUser("user 2", "USER");
 			accountService.addRoleToUser("admin", "ADMIN");
 
 			// Assign classes to users
-			accountService.assignClassToUser("user 1", classe1.getClasseId());
-			accountService.assignClassToUser("user 2", classe2.getClasseId());
+			accountService.assignClasseToUser(1L, classe1.getClasseId());
+			accountService.assignClasseToUser(2L, classe2.getClasseId());
 			
-			accountService.assignFormationToUser("user 1", formation1.getFormationId());
-			accountService.assignFormationToUser("user 1", formation2.getFormationId());
+			accountService.assignFormationToUser(1L, formation1.getFormationId());
+			accountService.assignFormationToUser(2L, formation2.getFormationId());
 						
 		};
 	}

@@ -30,10 +30,19 @@ public class ClasseServiceImpl implements ClasseService {
         return classeRepository.save(classe);
     }
 
+    
     @Override
-    public Classe getClassById(Long classeId) {
-        Optional<Classe> optionalClasse = classeRepository.findById(classeId);
-        return optionalClasse.orElse(null); // Return null or handle as appropriate
+    public List<Classe> getClassesByUser(Long userId) {
+        AppUser user = appUserRepository.findById(userId)
+                                        .orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getClasses();
+    }
+    
+    @Override
+    public List<Classe> getClassesByUser(String username) {
+    	
+        AppUser user = appUserRepository.findByUsername(username);
+        return user.getClasses();
     }
 
     @Override
@@ -75,9 +84,9 @@ public class ClasseServiceImpl implements ClasseService {
         // Optionally handle case where user was not found
     }
 
-    @Override
-    public List<Classe> getClassesByUser(Long userId) {
-        Optional<AppUser> optionalUser = appUserRepository.findById(userId);
-        return optionalUser.map(AppUser::getClasses).orElse(null);
-    }
+	@Override
+	public Classe getClassById(Long classeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

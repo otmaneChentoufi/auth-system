@@ -1,5 +1,5 @@
 <h1>Classes List</h1>
-<a href="/classes/createClasseView">Add New Class</a>
+<a href="/classes/createClasseView" sec:authorize="hasRole('ADMIN')">Add New Class</a>
 <table>
     <thead>
         <tr>
@@ -22,4 +22,8 @@
             </td>
         </tr>
     </tbody>
+	
 </table>
+
+<a href="/home">HOME</a>
+

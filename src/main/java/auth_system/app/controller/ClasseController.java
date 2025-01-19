@@ -2,6 +2,8 @@ package auth_system.app.controller;
 
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import auth_system.app.entities.Classe;
-import auth_system.app.service.AccountService;
 import auth_system.app.service.ClasseService;
 import lombok.RequiredArgsConstructor;
 
@@ -22,13 +23,27 @@ public class ClasseController {
 
     
     private final ClasseService classeService;
-    private final AccountService accountService; // Assuming you have a service for managing users
 
     // Display the list of classes
     @GetMapping("/list")
-    public String getAllClasses(Model model) {
-        List<Classe> classes = classeService.getAllClasses();
-        model.addAttribute("classes", classes);
+    public String getAllClasses(Model model, Authentication authentication) {
+    	
+    	 if (authentication != null && authentication.isAuthenticated()) {
+    	        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+    	
+		    	// Check if the user is an admin
+		        if (userDetails.getAuthorities().stream()
+		                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
+		          // Fetch all classes for admin
+		          List<Classe> classes = classeService.getAllClasses();
+		          model.addAttribute("classes", classes);
+		        } else {
+		            // Fetch classes and formations for the connected user
+		            List<Classe> classes = classeService.getClassesByUser(userDetails.getUsername());
+		            model.addAttribute("classes", classes);		
+		        }
+    	 }
+
         return "classes/list";
     }
     

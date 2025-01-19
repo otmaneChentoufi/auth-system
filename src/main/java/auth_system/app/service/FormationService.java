@@ -11,6 +11,7 @@ public interface FormationService {
 	    List<Formation> getAllFormations();
 	    Formation updateFormation(Long FormationId, Formation Formation);
 	    void deleteFormation(Long FormationId);
+	    List<Formation> getFormationUsername(String username);
 //	    void removeFormationFromUser(Long userId, Long FormationId);
 	    List<Formation> getFormationsByUser(Long userId);
 	    

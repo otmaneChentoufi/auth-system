@@ -38,7 +38,7 @@ public class AppUser {
     @Column(unique = true)
     private String email;
     
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
     
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

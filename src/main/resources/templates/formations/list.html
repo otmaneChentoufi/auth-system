@@ -1,5 +1,5 @@
 <h1>Formations List</h1>
-<a href="/formations/formationFormView">Add New Formation</a>
+<a href="/formations/formationFormView" sec:authorize="hasRole('ADMIN')"> Add New Formation</a>
 <table>
     <thead>
         <tr>
@@ -21,3 +21,5 @@
         </tr>
     </tbody>
 </table>
+<a href="/home">HOME</a>
+

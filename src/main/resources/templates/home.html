@@ -3,33 +3,22 @@
 <head>
     <title>Home Page</title>
 	<style>
-		.action-btn {
-		           padding: 6px 12px;
-		           border: none;
-		           cursor: pointer;
-		           color: white;
-		           border-radius: 4px;
-				   background-color: brown;
-		       }
 	</style>
 </head>
 <body>
-    <h1>Home Page</h1>
+		<a sec:authorize="hasRole('ADMIN')" href="/accounts/list">accounts list</a>
+		<a href="/classes/list">classes list</a>
+		<a href="/formations/list">formations list</a>
 
-    <!-- Greet the user if logged in -->
-    <p th:if="${username}" th:text="'Hello, ' + ${username} + '!'"></p>
+		
+		<!-- Greet the user if logged in -->
+		<p th:if="${username}" th:text="'Hello, ' + ${username} + '!'"></p>
 
-    <!-- Show product link and logout form only if user is logged in -->
-    <div th:if="${username}">
-        <a href="/product">Product Page</a>
-		<a href="/classes/list">Classes List</a>
-		<a href="/formations/list">Formations List</a>
-        <form th:action="@{/logout}" method="post" style="display: inline;">
-			<button class="action-btn" type="submit">Logout</button>
-        </form>
-    </div>
-
-    <!-- Message for guests -->
-    <p th:if="${username == null}">Welcome, guest! Please <a th:href="@{/login}">log in</a>.</p>
+		<!-- Show product link and logout form only if user is logged in -->
+		<div th:if="${username}">
+			<form th:action="@{/logout}" method="post" style="display: inline;">
+					<button class="action-btn" type="submit">Logout</button>
+		    </form>
+		</div>
 </body>
 </html>

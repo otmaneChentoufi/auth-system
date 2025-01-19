@@ -1,0 +1,33 @@
+
+<h1 th:if="${account}" th:text="'Formations de : ' + ${account.username}"></h1>
+
+<form th:action="@{/accounts/{userId}/assignFormation(userId=${account.userId})}" method="post">
+    <label for="formationId">Select formation:</label>
+    <select id="formationId" name="formationId">
+        <option th:each="formation : ${availableformations}" 
+                th:value="${formation.formationId}" 
+                th:text="${formation.name}"></option>
+    </select>
+    <button type="submit">Assign formation</button>
+</form>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>formation</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+		<tr th:if="${account.formations}" th:each="formation : ${account.formations}">
+			<td th:text="${formation.name}"></td>
+		    <td th:text="${formation.description}"></td>
+			<td>
+				<a th:href="@{'/accounts/delete/formations/' + ${account.userId} + '/'+ ${formation.formationId} }">remove formation</a>
+			</td>
+		</tr>
+    </tbody>
+</table>
+<a th:href="@{/accounts/list}">Retour à la liste des utilisateurs</a>
+

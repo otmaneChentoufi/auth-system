@@ -21,4 +21,8 @@ public interface UserRepository extends JpaRepository<AppUser, Long> {
 	
 	@Query("SELECT u FROM AppUser u JOIN u.formations c WHERE c = :formation")
 	List<AppUser> findByFormationContaining(@Param("formation") Formation formation);
+	
+	@Query("SELECT u FROM AppUser u JOIN u.roles r WHERE r.role <> 'ADMIN'")
+    List<AppUser> findAllByRoleNotAdmin();
+	
 }
