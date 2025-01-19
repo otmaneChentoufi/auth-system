@@ -1,3 +1,4 @@
+<div th:replace="menu :: menu"></div>
 <h1 th:text="${classe != null ? 'Edit Class' : 'Create Class'}"></h1>
 
 <form th:action="${classe != null ? '/classes/' + classe.classeId + '/edit' : '/classes/create'}" method="post">

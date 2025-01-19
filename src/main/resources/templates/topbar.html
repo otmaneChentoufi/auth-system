@@ -1,0 +1,15 @@
+
+	
+	<div th:fragment="topbar">
+		<!-- Greet the user if logged in -->
+		<p th:if="${username}" th:text="'Hello, ' + ${username} + '!'"></p>
+	
+		<!-- Show product link and logout form only if user is logged in -->
+		<div th:if="${username}">
+			<form th:action="@{/logout}" method="post" style="display: inline;">
+					<button class="action-btn" type="submit">Logout</button>
+		    </form>
+		</div>
+	</div>
+
+	

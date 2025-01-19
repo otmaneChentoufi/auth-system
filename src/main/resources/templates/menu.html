@@ -1,0 +1,6 @@
+<div th:fragment="menu">
+     <a sec:authorize="hasRole('ADMIN')" href="/accounts/list">Accounts List</a>
+     <a href="/classes/list">Classes List</a>
+     <a href="/formations/list">Formations List</a>
+     <a href="/home">Home</a>
+</div>

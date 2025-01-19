@@ -6,19 +6,9 @@
 	</style>
 </head>
 <body>
-		<a sec:authorize="hasRole('ADMIN')" href="/accounts/list">accounts list</a>
-		<a href="/classes/list">classes list</a>
-		<a href="/formations/list">formations list</a>
 
-		
-		<!-- Greet the user if logged in -->
-		<p th:if="${username}" th:text="'Hello, ' + ${username} + '!'"></p>
+		<div th:replace="menu :: menu"></div>
+		<div th:replace="topbar :: topbar"></div>
 
-		<!-- Show product link and logout form only if user is logged in -->
-		<div th:if="${username}">
-			<form th:action="@{/logout}" method="post" style="display: inline;">
-					<button class="action-btn" type="submit">Logout</button>
-		    </form>
-		</div>
 </body>
 </html>

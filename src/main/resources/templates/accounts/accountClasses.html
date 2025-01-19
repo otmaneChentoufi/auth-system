@@ -1,5 +1,5 @@
-
-    <h1 th:if="${account}" th:text="'Classes de : ' + ${account.username}"></h1>
+<div th:replace="menu :: menu"></div>
+<h1 th:if="${account}" th:text="'Classes de : ' + ${account.username}"></h1>
 	
 	<form th:action="@{/accounts/{userId}/assignClass(userId=${account.userId})}" method="post">
 	    <label for="classId">Select Class:</label>
