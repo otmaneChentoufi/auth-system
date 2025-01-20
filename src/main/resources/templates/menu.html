@@ -1,6 +1,18 @@
-<div th:fragment="menu">
-     <a sec:authorize="hasRole('ADMIN')" href="/accounts/list">Accounts List</a>
-     <a href="/classes/list">Classes List</a>
-     <a href="/formations/list">Formations List</a>
-     <a href="/home">Home</a>
+<div th:fragment="menu" style="padding-top: 20px; width: 200px; height: 100%; background-color: #333; position: fixed; left: 0; top: 0; overflow-y: auto;">
+	<a href="/home" 
+	     style="display: block; color: white; text-align: left; padding: 14px 16px; text-decoration: none;">
+	      Home
+	  </a>
+	<a sec:authorize="hasRole('ADMIN')" href="/accounts/list" 
+       style="display: block; color: white; text-align: left; padding: 14px 16px; text-decoration: none;">
+        Accounts List
+    </a>
+    <a href="/classes/list" 
+       style="display: block; color: white; text-align: left; padding: 14px 16px; text-decoration: none;">
+        Classes List
+    </a>
+    <a href="/formations/list" 
+       style="display: block; color: white; text-align: left; padding: 14px 16px; text-decoration: none;">
+        Formations List
+    </a>
 </div>

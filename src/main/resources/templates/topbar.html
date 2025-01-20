@@ -1,15 +1,16 @@
+<div th:fragment="topbar" style="position: fixed; top: 0; left: 200px; right: 0; height: 50px; background-color: #444; color: white; display: flex; align-items: center; padding: 0 20px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);">
+    <!-- Greet the user if logged in -->
+    <p th:if="${username}" th:text="'Hello, ' + ${username} + '!'"
+       style="margin: 0; flex-grow: 1;"></p>
 
-	
-	<div th:fragment="topbar">
-		<!-- Greet the user if logged in -->
-		<p th:if="${username}" th:text="'Hello, ' + ${username} + '!'"></p>
-	
-		<!-- Show product link and logout form only if user is logged in -->
-		<div th:if="${username}">
-			<form th:action="@{/logout}" method="post" style="display: inline;">
-					<button class="action-btn" type="submit">Logout</button>
-		    </form>
-		</div>
-	</div>
+    <!-- Show product link and logout form only if user is logged in -->
+    <div th:if="${username}" style="display: inline;">
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+            <button class="action-btn" type="submit" style="background-color: #f44336; color: white; border: none; padding: 10px 15px; cursor: pointer;">
+                Logout
+            </button>
+        </form>
+    </div>
+</div>
 
 	

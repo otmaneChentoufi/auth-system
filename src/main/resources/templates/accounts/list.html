@@ -1,31 +1,32 @@
 <div th:replace="menu :: menu"></div>
-<h1>Account List</h1>
-<a href="/registration">Add New Account</a>
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>E-mail</th>
-			<th>Classes</th>
-			<th>Formations</th>
-            <th sec:authorize="hasRole('ADMIN')">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="account : ${accounts}">
-            <td th:text="${account.username}"></td>
-            <td th:text="${account.email}"></td>
-			<td>
-				<a th:href="@{'/accounts/' + ${account.userId} + '/classes'}">classe details</a>
-			</td>
-			<td>
-				<a th:href="@{'/accounts/' + ${account.userId} + '/formations'}">formation details</a>
-			</td>
-            <td sec:authorize="hasRole('ADMIN')">
-                <a th:href="@{'/accounts/delete/'+${account.userId}}">Delete</a>
-            </td>
-        </tr>
-    </tbody>
-	
+<div style="text-align: center; margin-left: 200px;">
+	<h1 style="text-align: center; margin-bottom: 20px;">Account List</h1>
+	<a href="/registration" style="display: block; text-align: center; margin-bottom: 20px; text-decoration: none; color: #007BFF;">Add New Account</a>
 
-</table>
+	<table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+	    <thead>
+	        <tr>
+	            <th style="padding: 10px; background-color: #f2f2f2;">Name</th>
+	            <th style="padding: 10px; background-color: #f2f2f2;">E-mail</th>
+	            <th style="padding: 10px; background-color: #f2f2f2;">Classes</th>
+	            <th style="padding: 10px; background-color: #f2f2f2;">Formations</th>
+	            <th sec:authorize="hasRole('ADMIN')" style="padding: 10px; background-color: #f2f2f2;">Actions</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr th:each="account : ${accounts}">
+	            <td th:text="${account.username}" style="padding: 10px; border: 1px solid #ddd;"></td>
+	            <td th:text="${account.email}" style="padding: 10px; border: 1px solid #ddd;"></td>
+	            <td style="padding: 10px; border: 1px solid #ddd;">
+	                <a th:href="@{'/accounts/' + ${account.userId} + '/classes'}" style="text-decoration: none; color: #007BFF;">classe details</a>
+	            </td>
+	            <td style="padding: 10px; border: 1px solid #ddd;">
+	                <a th:href="@{'/accounts/' + ${account.userId} + '/formations'}" style="text-decoration: none; color: #007BFF;">formation details</a>
+	            </td>
+	            <td sec:authorize="hasRole('ADMIN')" style="padding: 10px; border: 1px solid #ddd;">
+	                <a th:href="@{'/accounts/delete/'+${account.userId}}" style="text-decoration: none; color: red;">Delete</a>
+	            </td>
+	        </tr>
+	    </tbody>
+	</table>
+</div>

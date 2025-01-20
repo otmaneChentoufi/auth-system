@@ -1,33 +1,36 @@
 <div th:replace="menu :: menu"></div>
-<h1 th:if="${account}" th:text="'Formations de : ' + ${account.username}"></h1>
+<div style="text-align: center; margin-left: 200px;">
+	
+<h1 th:if="${account}" th:text="'Formations de : ' + ${account.username}" style="text-align: center; margin-bottom: 20px;"></h1>
 
-<form th:action="@{/accounts/{userId}/assignFormation(userId=${account.userId})}" method="post">
-    <label for="formationId">Select formation:</label>
-    <select id="formationId" name="formationId">
+<form th:action="@{/accounts/{userId}/assignFormation(userId=${account.userId})}" method="post" style="max-width: 400px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+    <label for="formationId" style="display: block; margin-bottom: 8px;">Select formation:</label>
+    <select id="formationId" name="formationId" style="width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;">
         <option th:each="formation : ${availableformations}" 
                 th:value="${formation.formationId}" 
                 th:text="${formation.name}"></option>
     </select>
-    <button type="submit">Assign formation</button>
+    <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer;">Assign formation</button>
 </form>
 
-<table border="1">
+<table border="1" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
     <thead>
         <tr>
-            <th>formation</th>
-            <th>Description</th>
-            <th>Actions</th>
+            <th style="padding: 10px; background-color: #f2f2f2;">Formation</th>
+            <th style="padding: 10px; background-color: #f2f2f2;">Description</th>
+            <th style="padding: 10px; background-color: #f2f2f2;">Actions</th>
         </tr>
     </thead>
     <tbody>
-		<tr th:if="${account.formations}" th:each="formation : ${account.formations}">
-			<td th:text="${formation.name}"></td>
-		    <td th:text="${formation.description}"></td>
-			<td>
-				<a th:href="@{'/accounts/delete/formations/' + ${account.userId} + '/'+ ${formation.formationId} }">remove formation</a>
-			</td>
-		</tr>
+        <tr th:if="${account.formations}" th:each="formation : ${account.formations}">
+            <td th:text="${formation.name}" style="padding: 10px;"></td>
+            <td th:text="${formation.description}" style="padding: 10px;"></td>
+            <td style="padding: 10px;">
+                <a th:href="@{'/accounts/delete/formations/' + ${account.userId} + '/'+ ${formation.formationId} }" style="color: red; text-decoration: none;">remove formation</a>
+            </td>
+        </tr>
     </tbody>
 </table>
-<a th:href="@{/accounts/list}">Retour à la liste des utilisateurs</a>
 
+<a th:href="@{/accounts/list}" style="display: block; text-align: center; margin-top: 20px; text-decoration: none; color: #007BFF;">Retour à la liste des utilisateurs</a>
+</div>

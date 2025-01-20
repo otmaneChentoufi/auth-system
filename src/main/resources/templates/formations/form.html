@@ -1,12 +1,14 @@
 <div th:replace="menu :: menu"></div>
-<h1 th:text="${formation != null ? 'Edit Formation' : 'Create Formation'}"></h1>
+<div style="text-align: center; margin-left: 200px;margin-top: 50px;">
+	<h1 th:text="${formation != null ? 'Edit Formation' : 'Create Formation'}" style="text-align: center; margin-bottom: 20px;"></h1>
 
-<form th:action="${formation != null ? '/formations/' + formation.formationId + '/edit' : '/formations/create'}" method="post">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" th:value="${formation != null ? formation.name : ''}" required>
-
-    <label for="description">Description:</label>
-    <textarea id="description" name="description" rows="5" required th:text="${formation != null ? formation.description : ''}"></textarea>
-
-    <button type="submit" th:text="${formation != null ? 'Update Formation' : 'Create Formation'}"></button>
-</form>
+	<form th:action="${formation != null ? '/formations/' + formation.formationId + '/edit' : '/formations/create'}" method="post" style="max-width: 500px; margin: auto; border: 1px solid #ccc; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+	    <label for="name" style="display: block; margin-bottom: 8px;">Name:</label>
+	    <input type="text" id="name" name="name" th:value="${formation != null ? formation.name : ''}" required style="width: 100%; padding: 10px; margin-bottom: 16px; border: 1px solid #ccc; border-radius: 4px;">
+	
+	    <label for="description" style="display: block; margin-bottom: 8px;">Description:</label>
+	    <textarea id="description" name="description" rows="5" required th:text="${formation != null ? formation.description : ''}" style="width: 100%; padding: 10px; margin-bottom: 16px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+	
+	    <button type="submit" th:text="${formation != null ? 'Update Formation' : 'Create Formation'}" style="background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; width: 100%;">Submit</button>
+	</form>
+</div>

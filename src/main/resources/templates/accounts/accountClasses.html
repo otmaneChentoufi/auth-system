@@ -1,35 +1,39 @@
 <div th:replace="menu :: menu"></div>
-<h1 th:if="${account}" th:text="'Classes de : ' + ${account.username}"></h1>
-	
-	<form th:action="@{/accounts/{userId}/assignClass(userId=${account.userId})}" method="post">
-	    <label for="classId">Select Class:</label>
-	    <select id="classId" name="classId">
+<div style="text-align: center; margin-left: 200px;">
+	<h1 th:if="${account}" th:text="'Classes de : ' + ${account.username}" style="text-align: center; margin-bottom: 20px;"></h1>
+
+	<form th:action="@{/accounts/{userId}/assignClass(userId=${account.userId})}" method="post" style="max-width: 400px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+	    <label for="classId" style="display: block; margin-bottom: 8px;">Select Class:</label>
+	    <select id="classId" name="classId" style="width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;">
 	        <option th:each="classe : ${availableClasses}" 
 	                th:value="${classe.classeId}" 
 	                th:text="${classe.name}"></option>
 	    </select>
-	    <button type="submit">Assign Class</button>
+	    <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer;">Assign Class</button>
 	</form>
-	
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Classe</th>
-                <th>Description</th>
-                <th>Nombre d'heures</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-			<tr th:if="${account.classes}" th:each="classe : ${account.classes}">
-				<td th:text="${classe.name}"></td>
-			    <td th:text="${classe.description}"></td>
-			    <td th:text="${classe.nombreHeurs}"></td>
-				<td>
-					<a th:href="@{'/accounts/delete/classes/' + ${account.userId} + '/'+ ${classe.classeId} }">remove classe</a>
-				</td>
-			</tr>
-        </tbody>
-    </table>
-    <a th:href="@{/accounts/list}">Retour à la liste des utilisateurs</a>
+
+	<table border="1" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+	    <thead>
+	        <tr>
+	            <th style="padding: 10px; background-color: #f2f2f2;">Classe</th>
+	            <th style="padding: 10px; background-color: #f2f2f2;">Description</th>
+	            <th style="padding: 10px; background-color: #f2f2f2;">Nombre d'heures</th>
+	            <th style="padding: 10px; background-color: #f2f2f2;">Actions</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr th:if="${account.classes}" th:each="classe : ${account.classes}">
+	            <td th:text="${classe.name}" style="padding: 10px;"></td>
+	            <td th:text="${classe.description}" style="padding: 10px;"></td>
+	            <td th:text="${classe.nombreHeurs}" style="padding: 10px;"></td>
+	            <td style="padding: 10px;">
+	                <a th:href="@{'/accounts/delete/classes/' + ${account.userId} + '/'+ ${classe.classeId} }" style="color: red; text-decoration: none;">remove classe</a>
+	            </td>
+	        </tr>
+	    </tbody>
+	</table>
+
+	<a th:href="@{/accounts/list}" style="display: block; text-align: center; margin-top: 20px; text-decoration: none; color: #007BFF;">Retour à la liste des utilisateurs</a>
+
+</div>
 
